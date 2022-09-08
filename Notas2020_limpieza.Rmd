@@ -1,0 +1,65 @@
+---
+title: "Notas2020_limpieza"
+author: "Elizabeth Cattaneo"
+date: "9/8/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**OBJETIVOS:**
+Realizar el análisis estadístico de desempeño de la cursada 2020 de Bioquímica y Biología Molecular.
+
+1) Hacer recuento de estudiantes promocionados, aprobados, desaprobados y ausentes para la cursada completa.
+2) Hacer recuento de las mismas instancias discriminando por parcial.
+
+```{r}
+# importo librerias
+library(dplyr)
+library(ggplot2)
+library(readxl)
+library(funModeling)
+```
+
+```{r}
+# importo datos
+data <- read_xlsx("Notas_2020_unificada.xlsx")
+```
+
+```{r}
+dim(data)
+```
+* Total de estudiantes: 1617
+
+**Exploratory Data Analysis**
+
+1) General
+* str()
+* summary()
+* status()
+2) Variables numéricas
+* describe()
+3) Variables categóricas
+* freq()
+
+**EDA General**
+
+```{r}
+str(data)
+```
+* Comision y notas de Promoción ok! (son numéricas)
+* En las variables de nota por fecha de parcial (2 a 8) convirtió los strings del dataset original en NAs y la transformó en character -> corregir
+
+```{r}
+summary(data)
+```
+
+```{r}
+status(data)
+```
+* Los NA en las variables de notas por fecha significan que el estudiante no se presentó a rendir.
+* datos únicos en comisiones ok!
+* datos únicos en PROMOCION ok! (se promociona con notas entre 70 y 100)
+* datos únicos en variables de nota por fecha son posibles. En 2020 (excepto P2F1 para promoción) evaluamos de forma escrita por formularios de Google y la nota puede ser cualquier valor entre 0 y 100
