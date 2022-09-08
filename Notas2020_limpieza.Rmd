@@ -10,10 +10,12 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 **OBJETIVOS:**
-Realizar el análisis estadístico de desempeño de la cursada 2020 de Bioquímica y Biología Molecular.
+Realizar el análisis estadístico de desempeño de la cursada 2020 de Bioquímica y Biología Molecular (BBM).
 
 1) Hacer recuento de estudiantes promocionados, aprobados, desaprobados y ausentes para la cursada completa.
 2) Hacer recuento de las mismas instancias discriminando por parcial.
+
+Para acreditar la cursada los estudiantes deben aprobar 2 parciales. Los parciales se aprueban con 4 o más puntos. Los estudiantes que obtienen 7 o más puntos en la 1ra fecha de ambos parciales promocionan la materia (no deben rendir un examen final)
 
 ```{r}
 # importo librerias
@@ -31,7 +33,8 @@ data <- read_xlsx("Notas_2020_unificada.xlsx")
 ```{r}
 dim(data)
 ```
-* Total de estudiantes: 1617
+**Info1:**
+Total de estudiantes inscriptos: 1617
 
 **Exploratory Data Analysis**
 
@@ -62,4 +65,40 @@ status(data)
 * Los NA en las variables de notas por fecha significan que el estudiante no se presentó a rendir.
 * datos únicos en comisiones ok!
 * datos únicos en PROMOCION ok! (se promociona con notas entre 70 y 100)
-* datos únicos en variables de nota por fecha son posibles. En 2020 (excepto P2F1 para promoción) evaluamos de forma escrita por formularios de Google y la nota puede ser cualquier valor entre 0 y 100
+* datos únicos en variables de nota por fecha son posibles. En 2020 (excepto P2F1 para promoción) evaluamos de forma escrita por formularios de Google y la nota puede ser cualquier valor entre 0 y 100.
+
+**EDA Numéricas**
+Lo hago porque en las variables de nota por fecha, aunque son character, me permite ver la cantidad de presentes (n) por fecha.
+
+```{r}
+describe(data)
+```
+
+**Info2:**
+Promocionaron con:
+7 puntos el 27% de los alumnos
+8 puntos el 38.5% de los alumnos
+9 puntos el 27% y
+10 puntos el 7.5%
+
+**OBJ 1: recuento de estudiantes promocionados, aprobados, desaprobados y abandonaron para la cursada completa.**
+
+* Promocionados: alumnos que obtuvieron 7 o más puntos en P1F1 y P2F1 (aprueban con más de 7 puntos la 1ra fecha de cada parcial)
+* Aprobados: alumnos que obtienen más de 4 puntos en cualquier fecha de cada parcial (pero menos de 7 puntos en la 1ra, si se presentan)
+* Desaprobados: alumnos que obtienen entre 0 y 3 puntos. Para la cursada completa contabilizo juntos desaprobados del 1er y 2do parcial.
+* Abandonaron: alumnos que se anotaron pero nunca se presentaron a rendir + alumnos que aprobaron el 1er parcial pero no se presentaron a rendir el 2do.
+
+
+
+
+
+
+
+**CONCLUSIONES**
+1) Se inscribieron en la materia 1617 estudiantes
+2) Promocionaron con:
+7 puntos el 27% de los alumnos
+8 puntos el 38.5% de los alumnos
+9 puntos el 27% y
+10 puntos el 7.5%
+Esto está calculado sobre los inscriptos (no sobre los que efectivamente cursaron)
