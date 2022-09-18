@@ -15,7 +15,9 @@ Realizar el análisis estadístico de desempeño de la cursada 2020 de Bioquími
 1) Hacer recuento de estudiantes promocionados, aprobados, desaprobados y ausentes para la cursada completa.
 2) Hacer recuento de las mismas instancias discriminando por parcial.
 
-Para acreditar la cursada los estudiantes deben aprobar 2 parciales. Los parciales se aprueban con 4 o más puntos. Los estudiantes que obtienen 7 o más puntos en la 1ra fecha de ambos parciales promocionan la materia (no deben rendir un examen final)
+Para acreditar la cursada los estudiantes deben aprobar 2 parciales. 
+Los parciales se aprueban con 4 o más puntos. 
+Los estudiantes que obtienen 7 o más puntos en la 1ra fecha de ambos parciales promocionan la materia (no deben rendir un examen final)
 
 ```{r}
 # importo librerias
@@ -65,7 +67,8 @@ status(data)
 * Los NA en las variables de notas por fecha significan que el estudiante no se presentó a rendir.
 * datos únicos en comisiones ok!
 * datos únicos en PROMOCION ok! (se promociona con notas entre 70 y 100)
-* datos únicos en variables de nota por fecha son posibles. En 2020 (excepto P2F1 para promoción) evaluamos de forma escrita por formularios de Google y la nota puede ser cualquier valor entre 0 y 100.
+* datos únicos en variables de nota por fecha son posibles. 
+En 2020 (excepto P2F1 para promoción) evaluamos de forma escrita por formularios de Google y la nota puede ser cualquier valor entre 0 y 100.
 
 **EDA Numéricas**
 Lo hago porque en las variables de nota por fecha, aunque son character, me permite ver la cantidad de presentes (n) por fecha.
@@ -81,6 +84,10 @@ Promocionaron con:
 9 puntos el 27% y
 10 puntos el 7.5%
 
+**LIMPIEZA**
+
+
+
 **OBJ 1: recuento de estudiantes promocionados, aprobados, desaprobados y abandonaron para la cursada completa.**
 
 * Promocionados: alumnos que obtuvieron 7 o más puntos en P1F1 y P2F1 (aprueban con más de 7 puntos la 1ra fecha de cada parcial)
@@ -88,6 +95,11 @@ Promocionaron con:
 * Desaprobados: alumnos que obtienen entre 0 y 3 puntos. Para la cursada completa contabilizo juntos desaprobados del 1er y 2do parcial.
 * Abandonaron: alumnos que se anotaron pero nunca se presentaron a rendir + alumnos que aprobaron el 1er parcial pero no se presentaron a rendir el 2do.
 
+1.1) Recuento de alumnos promocionados
+```{r}
+prom <- sum(!is.na(data$PROMOCION))
+prom
+```
 
 
 
